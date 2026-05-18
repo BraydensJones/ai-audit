@@ -1,5 +1,5 @@
 // Replace this with the real n8n webhook URL before deploy.
-const N8N_INTAKE_WEBHOOK_URL = "N8N_INTAKE_WEBHOOK_URL";
+const N8N_INTAKE_WEBHOOK_URL = "https://n8n.braydensautomations.com/webhook/audit-intake";
 
 const MAX_FILE_BYTES = 5 * 1024 * 1024; // 5 MB
 const FALLBACK_EMAIL = "brayden@braydensautomations.com";
