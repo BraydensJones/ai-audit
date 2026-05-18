@@ -1,28 +1,16 @@
-/* ---------- Theme tokens ---------- */
+/* ---------- Tokens (single dark theme) ---------- */
 
-:root,
-[data-theme="dark"] {
-  --bg: #1F1E1D;
-  --surface: #262524;
-  --text: #EDEAE3;
-  --text-muted: #A39E94;
-  --border: #393734;
-  --accent: #D2752B;
-  --accent-hover: #E08740;
-  --accent-contrast: #1F1E1D;
+:root {
+  --bg: #04070D;
+  --surface: #0B0F17;
+  --surface-hover: #11161F;
+  --text: #FFFFFF;
+  --text-secondary: #D5DBE6;
+  --text-muted: #8A93A6;
+  --border: #1A2030;
+  --border-strong: #242C40;
+  --accent: #D5DBE6;
   --error: #E5705B;
-}
-
-[data-theme="light"] {
-  --bg: #F5F1EA;
-  --surface: #FBF8F2;
-  --text: #2B2A27;
-  --text-muted: #6B6862;
-  --border: #E2DCD0;
-  --accent: #C8642D;
-  --accent-hover: #B0551F;
-  --accent-contrast: #FFFFFF;
-  --error: #C0533F;
 }
 
 /* ---------- Reset ---------- */
@@ -33,7 +21,7 @@ html, body {
   margin: 0;
   padding: 0;
   background: var(--bg);
-  color: var(--text);
+  color: var(--text-secondary);
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   font-size: 15px;
   font-weight: 400;
@@ -43,20 +31,19 @@ html, body {
 }
 
 html { color-scheme: dark; }
-[data-theme="light"] { color-scheme: light; }
 
 a {
   color: var(--accent);
   text-decoration: none;
-  border-bottom: 1px solid color-mix(in srgb, var(--accent) 35%, transparent);
+  border-bottom: 1px solid color-mix(in srgb, var(--accent) 30%, transparent);
   transition: color 140ms ease, border-color 140ms ease;
 }
-a:hover { color: var(--accent-hover); border-bottom-color: var(--accent-hover); }
+a:hover { color: var(--text); border-bottom-color: var(--text); }
 a:focus-visible {
   outline: none;
-  color: var(--accent-hover);
-  border-bottom-color: var(--accent-hover);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+  color: var(--text);
+  border-bottom-color: var(--text);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
   border-radius: 2px;
 }
 
@@ -93,6 +80,14 @@ h1 {
   color: var(--text);
 }
 
+.accent-serif {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-style: italic;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: var(--text);
+}
+
 .lede {
   margin: 0;
   font-size: 15px;
@@ -102,7 +97,7 @@ h1 {
   max-width: 52ch;
 }
 
-/* ---------- Form sections (separated by SPACE, no cards) ---------- */
+/* ---------- Form sections ---------- */
 
 form { display: block; }
 
@@ -134,7 +129,7 @@ label,
   font-size: 14px;
   font-weight: 500;
   line-height: 1.4;
-  color: var(--text);
+  color: var(--text-secondary);
   margin-bottom: 8px;
 }
 
@@ -176,13 +171,13 @@ input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; marg
 textarea { resize: vertical; min-height: 96px; }
 
 input:hover, textarea:hover {
-  border-color: color-mix(in srgb, var(--border) 60%, var(--text-muted));
+  border-color: var(--border-strong);
 }
 
 input:focus, textarea:focus {
   outline: none;
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+  border-color: var(--border-strong);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
 }
 
 input[aria-invalid="true"],
@@ -192,7 +187,7 @@ textarea[aria-invalid="true"] {
 input[aria-invalid="true"]:focus,
 textarea[aria-invalid="true"]:focus {
   border-color: var(--error);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--error) 20%, transparent);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--error) 18%, transparent);
 }
 
 /* Prefix input ($ field) */
@@ -241,7 +236,7 @@ textarea[aria-invalid="true"]:focus {
   display: block;
   font-size: 14px;
   font-weight: 500;
-  color: var(--text);
+  color: var(--text-secondary);
 }
 .dropzone-secondary {
   display: block;
@@ -251,19 +246,19 @@ textarea[aria-invalid="true"]:focus {
 }
 
 .dropzone:hover {
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
 }
 
 .field:has(.dropzone input:focus-visible) .dropzone {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
+  border-color: var(--border-strong);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 12%, transparent);
 }
 
 .field:has(.file-meta:not([hidden])) .dropzone {
   border-style: solid;
-  border-color: var(--accent);
-  background: color-mix(in srgb, var(--accent) 6%, var(--surface));
+  border-color: var(--border-strong);
+  background: var(--surface-hover);
 }
 
 .field:has(.error:not(:empty)) .dropzone {
@@ -285,7 +280,7 @@ textarea[aria-invalid="true"]:focus {
   gap: 10px;
   font-size: 14px;
   font-weight: 400;
-  color: var(--text);
+  color: var(--text-secondary);
   cursor: pointer;
   margin-bottom: 0;
   user-select: none;
@@ -294,7 +289,7 @@ textarea[aria-invalid="true"]:focus {
   margin: 0;
   width: 16px;
   height: 16px;
-  accent-color: var(--accent);
+  accent-color: var(--text-secondary);
   cursor: pointer;
 }
 
@@ -328,30 +323,31 @@ button {
   font-size: 14px;
   font-weight: 500;
   padding: 14px 20px;
-  background: var(--accent);
-  color: var(--accent-contrast);
-  border: 1px solid var(--accent);
+  background: var(--surface);
+  color: var(--text);
+  border: 1px solid var(--border);
   border-radius: 12px;
   cursor: pointer;
   width: 100%;
   transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
 }
-button:hover { background: var(--accent-hover); border-color: var(--accent-hover); }
+button:hover { background: var(--surface-hover); border-color: var(--border-strong); }
 button:focus-visible {
   outline: none;
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 30%, transparent);
+  border-color: var(--border-strong);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
 }
 button:disabled { opacity: 0.55; cursor: not-allowed; }
 
 .button-ghost {
   background: transparent;
-  color: var(--text);
+  color: var(--text-secondary);
   border: 1px solid var(--border);
   border-radius: 8px;
 }
 .button-ghost:hover {
   background: transparent;
-  border-color: var(--text-muted);
+  border-color: var(--border-strong);
   color: var(--text);
 }
 
@@ -382,7 +378,7 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
   margin: 0 0 12px;
   font-size: 15px;
   line-height: 1.5;
-  color: var(--text);
+  color: var(--text-secondary);
 }
 .state p:last-of-type { margin-bottom: 0; }
 .state-error button { margin-top: 24px; width: auto; min-width: 140px; }
@@ -395,42 +391,8 @@ button:disabled { opacity: 0.55; cursor: not-allowed; }
   font-size: 13px;
   color: var(--text-muted);
 }
-.foot a { color: var(--text-muted); border-bottom-color: color-mix(in srgb, var(--text-muted) 35%, transparent); }
-.foot a:hover { color: var(--accent); border-bottom-color: var(--accent); }
-
-/* ---------- Theme toggle ---------- */
-
-.theme-toggle {
-  position: fixed;
-  top: 16px;
-  right: 16px;
-  width: 36px;
-  height: 36px;
-  padding: 0;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  background: transparent;
-  color: var(--text-muted);
-  border: 1px solid transparent;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: color 140ms ease, background-color 140ms ease, border-color 140ms ease;
-}
-.theme-toggle:hover {
-  color: var(--text);
-  background: var(--surface);
-  border-color: var(--border);
-}
-.theme-toggle:focus-visible {
-  outline: none;
-  color: var(--text);
-  border-color: var(--border);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 20%, transparent);
-}
-.theme-toggle .icon { display: none; }
-[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
-[data-theme="light"] .theme-toggle .icon-moon { display: block; }
+.foot a { color: var(--text-muted); border-bottom-color: color-mix(in srgb, var(--text-muted) 30%, transparent); }
+.foot a:hover { color: var(--text); border-bottom-color: var(--text); }
 
 /* ---------- Motion ---------- */
 
