@@ -318,26 +318,36 @@ textarea[aria-invalid="true"]:focus {
   gap: 12px;
 }
 
-button {
+button,
+button[type="submit"],
+#submit_btn {
   font: inherit;
   font-size: 14px;
   font-weight: 500;
   padding: 14px 20px;
-  background: var(--surface);
-  color: var(--text);
-  border: 1px solid var(--border);
+  background: #0B0F17;
+  color: #FFFFFF;
+  border: 1px solid #1A2030;
   border-radius: 12px;
   cursor: pointer;
   width: 100%;
   transition: background-color 140ms ease, border-color 140ms ease, color 140ms ease, box-shadow 140ms ease, opacity 140ms ease;
 }
-button:hover { background: var(--surface-hover); border-color: var(--border-strong); }
-button:focus-visible {
-  outline: none;
-  border-color: var(--border-strong);
-  box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 18%, transparent);
+button:hover,
+button[type="submit"]:hover,
+#submit_btn:hover {
+  background: #11161F;
+  border-color: #1A2030;
+  color: #FFFFFF;
 }
-button:disabled { opacity: 0.55; cursor: not-allowed; }
+button:focus-visible,
+#submit_btn:focus-visible {
+  outline: none;
+  border-color: #242C40;
+  box-shadow: 0 0 0 3px color-mix(in srgb, #D5DBE6 18%, transparent);
+}
+button:disabled,
+#submit_btn:disabled { opacity: 0.55; cursor: not-allowed; }
 
 .button-ghost {
   background: transparent;
