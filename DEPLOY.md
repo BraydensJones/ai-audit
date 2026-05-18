@@ -51,3 +51,27 @@ Open `https://apply.braydensautomations.com`:
 ## 5. Updating
 
 Edit files, push (or re-upload), redeploy in Coolify. Static, so deploy is seconds.
+
+## 6. Sales page (`audit.html`)
+
+This repo also ships a sales page at `audit.html`. It uses the same
+`styles.css` and the same brand fonts. The only outbound action is a CTA
+button linking to the Stripe checkout for the $497 Inbound Audit.
+
+Recommended route: a separate subdomain on the same Coolify server, e.g.
+`audit.braydensautomations.com`.
+
+1. In Coolify, create a second Static Site resource pointing at this repo
+   (or upload the same files). Set the index document to `audit.html`. In
+   most Coolify static-site configs you can either:
+   - Rename `audit.html` to `index.html` in a separate branch or folder
+     served by that resource, or
+   - Configure the nginx default file to `audit.html`.
+2. Add an A record for `audit` pointing at the same Coolify IP, then add
+   the domain to the resource. Let's Encrypt issues automatically.
+
+If you do not want a second subdomain, the page is also reachable on the
+existing apply site at `https://apply.braydensautomations.com/audit.html`
+with no extra config. The Stripe button on the sales page sends purchasers
+to checkout, and the existing post-payment redirect should point at
+`apply.braydensautomations.com` (the intake form).
