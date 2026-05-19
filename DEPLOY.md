@@ -52,26 +52,56 @@ Open `https://apply.braydensautomations.com`:
 
 Edit files, push (or re-upload), redeploy in Coolify. Static, so deploy is seconds.
 
-## 6. Sales page (`audit.html`)
+## 6. Two subdomains, two Coolify resources, one repo
 
-This repo also ships a sales page at `audit.html`. It uses the same
-`styles.css` and the same brand fonts. The only outbound action is a CTA
-button linking to the Stripe checkout for the $497 Inbound Audit.
+Both subdomains pull from this same repo. The split is done by pointing
+each Coolify resource at a different publish directory. Every static
+deploy serves the publish directory's `index.html`, so each subdomain
+needs its own `index.html`.
 
-Recommended route: a separate subdomain on the same Coolify server, e.g.
-`audit.braydensautomations.com`.
+Repo layout:
 
-1. In Coolify, create a second Static Site resource pointing at this repo
-   (or upload the same files). Set the index document to `audit.html`. In
-   most Coolify static-site configs you can either:
-   - Rename `audit.html` to `index.html` in a separate branch or folder
-     served by that resource, or
-   - Configure the nginx default file to `audit.html`.
-2. Add an A record for `audit` pointing at the same Coolify IP, then add
-   the domain to the resource. Let's Encrypt issues automatically.
+```
+/                  <- apply.braydensautomations.com (intake form)
+  index.html       <- the form
+  styles.css
+  app.js
+/sales/            <- audit.braydensautomations.com (sales page)
+  index.html       <- the sales page
+  styles.css       <- duplicate, kept in sync (see note below)
+```
 
-If you do not want a second subdomain, the page is also reachable on the
-existing apply site at `https://apply.braydensautomations.com/audit.html`
-with no extra config. The Stripe button on the sales page sends purchasers
-to checkout, and the existing post-payment redirect should point at
-`apply.braydensautomations.com` (the intake form).
+### Coolify field values
+
+**Resource A: `apply.braydensautomations.com` (intake form)**
+- Base Directory: `/`
+- Publish Directory: `/` (leave at the repo root)
+- Domains: `apply.braydensautomations.com`
+
+**Resource B: `audit.braydensautomations.com` (sales page)**
+- Base Directory: `/`
+- Publish Directory: `/sales`
+- Domains: `audit.braydensautomations.com`
+
+After saving Resource B's Publish Directory, redeploy. Coolify will now
+serve `/sales/index.html` as the document root for `audit.*`, so
+`https://audit.braydensautomations.com/` loads the sales page.
+
+### DNS
+
+Both subdomains get an A record pointing at the Coolify server's public
+IP. Let's Encrypt provisions certs automatically once each domain is
+attached to its resource.
+
+### Keeping styles.css in sync
+
+`styles.css` exists in two places: the repo root (used by the form) and
+`/sales/styles.css` (used by the sales page). When you change the theme,
+edit `styles.css` at the root, then copy it into `/sales/`:
+
+```
+cp styles.css sales/styles.css
+```
+
+Commit both. Static deploys do not follow symlinks reliably across
+hosts, which is why this is a file copy rather than a link.
